@@ -1,23 +1,25 @@
 var express = require('express');
 var router = express.Router();
  
-const con = require('./connectMySQL');
+//const con = require('../../services/db/conection');
 
 
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {   
-let response;
-  con.query("select * from user", function (err, result, fields) {
-    if (err) throw err;
-    let result
-    console.log(result);
-});
-
-  res.json(result);     
-
+router.get('/userList', function(req, res, next) {    
+let response=[{
+  id:1,
+  name: 'John',
+  lastName:'John',
+},
+{
+  id:2,
+  name: 'John',
+  lastName:'John',
+}];
+  res.json(response);     
 }); 
 
 
-con.end();
+//con.end();
 module.exports = router;
