@@ -43,3 +43,15 @@ export const App =() => {
 }
 
 export default App;
+
+
+
+// <div className="App">
+// <a href="/usuarios">usuarios</a>
+//  <br />
+//  <a href="/roles">roles</a>
+//  <br />
+//  <a href={`/usuario/${987}`}>usuario Con ID</a>
+//  <Rutas></Rutas>  
+ 
+//  </div>
