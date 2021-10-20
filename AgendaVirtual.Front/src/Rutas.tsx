@@ -6,19 +6,16 @@ import {
   Link
 } from "react-router-dom";
 import { Roles } from "./Pantallas/Roles";
-import { UsuariosLista } from "./Pantallas/UsuariosLista";
-import { Usuario } from "./Pantallas/Usuario"; 
+import { UsuariosLista } from "./Pantallas/UsuariosLista/index";
 
-
-const Rutas:React.FC = ()=>{ 
+const Rutas:React.FC = ()=>{
     return (
     <Router>
         <Switch>
-          <Route path={`/usuario/:usuarioId`} component={Usuario}/>
-          <Route path="/usuarioslista" component={UsuariosLista}/>
+          <Route path="/usuarios" component={UsuariosLista}/>
           <Route path="/roles" component={Roles}/>
       </Switch>
   </Router>
     );
-} 
+}
 export default Rutas;
