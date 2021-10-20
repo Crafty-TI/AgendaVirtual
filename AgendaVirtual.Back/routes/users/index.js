@@ -5,11 +5,11 @@ const con = require('../../services/db/conection');
 
 /* GET users listing. */
 router.get('/userList', (req, res, next) => {   
-  const sqlSelect = "SELECT * FROM Usuarios"
+  const sqlSelect = "SELECT * FROM Usuarios where activo IS NULL"
   con.query(sqlSelect,(err,result) =>{
     return res.json(result);  
   })
-  con.end();
+  //con.end();
 }); 
 
 /*  users Insert. */
@@ -23,7 +23,7 @@ router.post('/userInsert',(req,res) => {
   con.query(sqlInsert,[nombre,apellido,mail,tel,rol], (err,result) =>{
     return res.json(result);
   })
-  con.end();
+  //con.end();
 })
 
 /*  users Update. */
@@ -42,7 +42,7 @@ router.put('/userUpdate',(req,res) => {
 
 /* Desactivar usuario. */
 router.put('/userDelete',(req,res) => {
-  const id = req.body.id;
+  const id = req.body.userId;
   const sqlUpdate = "UPDATE usuarios SET activo = 'no' WHERE id = ?"
   con.query(sqlUpdate,[id], (err,result) => {
       return res.json(result);
