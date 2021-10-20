@@ -6,7 +6,8 @@ import {
   Link
 } from "react-router-dom";
 import { Roles } from "./Pantallas/Roles";
-import { UsuariosLista } from "./Pantallas/UsuariosLista/index";
+import { Usuario } from "./Pantallas/Usuario";
+import  UsuariosLista from "./Pantallas/UsuariosLista/index";
 
 const Rutas:React.FC = ()=>{
     return (
@@ -14,6 +15,8 @@ const Rutas:React.FC = ()=>{
         <Switch>
           <Route path="/usuarios" component={UsuariosLista}/>
           <Route path="/roles" component={Roles}/>
+          <Route path="/editarusuario/:usuarioId" component={Usuario}/>
+          <Route path="/crearusuario" component={Usuario}/>
       </Switch>
   </Router>
     );
