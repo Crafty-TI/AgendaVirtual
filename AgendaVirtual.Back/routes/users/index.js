@@ -33,9 +33,9 @@ router.put('/userUpdate',(req,res) => {
   const apellido = req.body.apellido;
   const mail = req.body.mail;
   const tel = req.body.tel;
-  const rol = req.body.rol;
+  const rol_id = req.body.rol_id;
   const sqlUpdate = "UPDATE usuarios SET nombre = ?, apellido = ?, mail = ?, tel = ?, rol_id = ? WHERE id = ?"
-  con.query(sqlUpdate, [nombre,apellido,mail,tel,rol,id], (err,result) => {
+  con.query(sqlUpdate, [nombre,apellido,mail,tel,rol_id,id], (err,result) => {
       return res.json(result);
     })
 })
@@ -49,3 +49,15 @@ router.put('/userDelete',(req,res) => {
     })
 })
 module.exports = router;
+
+//Listar usuario a Editar
+router.get('/userListEdit/:usuarioId', (req, res, next) => {   
+  const id = req.params.usuarioId;
+  const sqlSelect = "SELECT * FROM Usuarios where id = ?"
+  con.query(sqlSelect,id,(err,result) =>{
+    console.log("En la funcion para listar usuario a editar")
+    return res.json(result);  
+    
+  })
+  //con.end();
+}); 
