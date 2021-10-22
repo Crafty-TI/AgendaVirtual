@@ -68,7 +68,7 @@ export const Usuario: React.FC = () => {
                             <Button variant="contained" color="success" onClick={() => {
                                 updateUsuario(form.id)
                             }}>
-                                Editar
+                                Aceptar
                             </Button>
                         </Stack>
                     </div>
