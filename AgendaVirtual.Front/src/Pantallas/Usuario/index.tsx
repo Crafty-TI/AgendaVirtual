@@ -9,16 +9,15 @@ import TextField from '@mui/material/TextField';
 export const Usuario: React.FC = () => {
     const history = useHistory();
     const {get, put, post} = useConeccion();
-    const [userEdit , setUserEdit] = useState([]);
-    //valores que se van a editar:
-    const [form,  setForm] = useState<any>({});
+    //valores que se van a editar o insertar:
+    let [form,  setForm] = useState<any>({});
     //*
 
     let { usuarioId }:any = useParams();
     const titulo = usuarioId ? "Editar Usuario ":"Crear Usuario" 
 
     useEffect(() => {
-        get(`users/userListEdit/${usuarioId}`).then((response) => {
+        get(`users/userEditList/${usuarioId}`).then((response) => {
             setForm(response.data[0])
 
         });
@@ -28,8 +27,18 @@ export const Usuario: React.FC = () => {
         put(`users/userUpdate/`,{
             ...form
         });
-        // window.location.reload();
+        history.push(`/usuarios`)
+        alert("Usuario Editado")
     };
+
+    const createUsuario = () =>{
+        post(`users/userInsert/`,{
+            ...form
+        });
+        alert("Usuario Agregado")
+        form = {};
+        window.location.reload();
+    }
       
             return (
                 <div>
@@ -65,9 +74,10 @@ export const Usuario: React.FC = () => {
                             }}>
                                 Cancelar
                             </Button>
-                            <Button variant="contained" color="success" onClick={() => {
+                            <Button variant="contained" color="success" onClick={usuarioId ?() => {
                                 updateUsuario(form.id)
-                            }}>
+                            }:
+                            () => {createUsuario()}}>
                                 Aceptar
                             </Button>
                         </Stack>

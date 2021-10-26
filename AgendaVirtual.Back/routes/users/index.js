@@ -18,7 +18,7 @@ router.post('/userInsert',(req,res) => {
   const apellido = req.body.apellido;
   const mail = req.body.mail;
   const tel = req.body.tel;
-  const rol = req.body.rol;
+  const rol = req.body.rol_id;
   const sqlInsert = "INSERT INTO usuarios (nombre, apellido, mail, tel, rol_id) VALUES (?,?,?,?,?)"
   con.query(sqlInsert,[nombre,apellido,mail,tel,rol], (err,result) =>{
     return res.json(result);
@@ -51,7 +51,7 @@ router.put('/userDelete',(req,res) => {
 module.exports = router;
 
 //Listar usuario a Editar
-router.get('/userListEdit/:usuarioId', (req, res, next) => {   
+router.get('/userEditList/:usuarioId', (req, res, next) => {   
   const id = req.params.usuarioId;
   const sqlSelect = "SELECT * FROM Usuarios where id = ?"
   con.query(sqlSelect,id,(err,result) =>{
