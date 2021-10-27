@@ -17,6 +17,8 @@ export const App = () => {
       <a href={`/editarusuario/${987}`}>Editar Usuario</a>
       <br />
       <a href={`/crearusuario`}>Añadir Usuario</a>
+      <br />
+      <a href={`/login`}>Login</a>
       <Rutas></Rutas>
     </div>
 

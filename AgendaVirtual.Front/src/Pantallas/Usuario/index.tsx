@@ -56,6 +56,12 @@ export const Usuario: React.FC = () => {
                     <TextField id="standard-basic" variant="standard" value={form?.mail} onChange={(e) => {
                         setForm({...form,mail:e.target.value})
                     }}/><br /><br />
+                    
+                    <label >Password</label><br />
+                    <TextField type="password" id="standard-basic" variant="standard" value={form?.password} onChange={(e) => {
+                        setForm({...form,password:e.target.value})
+                    }}/><br /><br />
+
                     <label >Telefono</label><br />
                     <TextField id="standard-basic" variant="standard" value={form?.tel} onChange={(e) => {
                         setForm({...form,tel:e.target.value})
@@ -65,10 +71,7 @@ export const Usuario: React.FC = () => {
                         setForm({...form,rol_id:e.target.value})
                     }}/><br /><br />
 
-
-
-                    <div className="Botones" >
-                        <Stack direction="row" spacing={2}>
+                        <Stack direction="row" spacing={2} style={{flex:1, justifyContent:"center"}}>
                             <Button variant="outlined" color="error" onClick={() => {
                                 history.push(`/usuarios`)
                             }}>
@@ -78,10 +81,9 @@ export const Usuario: React.FC = () => {
                                 updateUsuario(form.id)
                             }:
                             () => {createUsuario()}}>
-                                Aceptar
+                                {usuarioId ? "Actualizar": "Insertar"}
                             </Button>
                         </Stack>
-                    </div>
                 </div>
             )
      
