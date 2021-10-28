@@ -14,7 +14,6 @@ const Rutas:React.FC = ()=>{
     return (
     <Router>
         <Switch>
-          <Route path="/" component={Login}/>
           <Route path="/usuarios" component={UsuariosLista}/>
           <Route path="/roles" component={Roles}/>
           <Route path="/editarusuario/:usuarioId" component={Usuario}/>
