@@ -14,9 +14,11 @@ export const App = () => {
       <br />
       <a href="/roles">roles</a>
       <br />
-      <a href={`/editarusuario/${987}`}>usuario editar Con ID</a>
+      <a href={`/editarusuario/${987}`}>Editar Usuario</a>
       <br />
-      <a href={`/crearusuario`}>usuario agregar Con ID</a>
+      <a href={`/crearusuario`}>Añadir Usuario</a>
+      <br />
+      <a href={`/login`}>Login</a>
       <Rutas></Rutas>
     </div>
 

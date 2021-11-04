@@ -13,8 +13,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import { red } from "@mui/material/colors";
+import { green, red } from "@mui/material/colors";
+import { useHistory } from "react-router-dom";
+import { useConeccion } from "../../hooks/useConeccion";
 // import Paper from '@mui/material/Paper';
 // import { red } from "@mui/material/colors";
 // import { width } from "@mui/system";
@@ -54,17 +57,20 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   
 
 const UsuariosLista:React.FC = () => {
+
+    const {get, put, post} = useConeccion();
+    const history = useHistory();
     const [usersList, setUsersList]= useState([]);
 
     useEffect(() => {
-        Axios.get('http://localhost:3009/api/users/userList').then((response) => {
+        get('users/userList').then((response) => {
             setUsersList(response.data)
 
         });
     },[])
 
 const desactivarUsuario= (userId : number) => {
-    Axios.put('http://localhost:3009/api/users/userDelete',{
+    put('users/userDelete',{
       userId : userId
     });
     window.location.reload();
@@ -94,7 +100,7 @@ const desactivarUsuario= (userId : number) => {
                   <StyledTableCell align="right">{row.tel}</StyledTableCell>
                   <StyledTableCell align="right">{row.rol_id}</StyledTableCell>
                   <IconButton aria-label="edit" onClick={() => {
-                    alert('Vas a editar el usuario: '+ row.id)
+                    history.push(`/editarusuario/${row.id}`)
                   }}>
                   <ModeEditIcon color="primary"/>
                   </IconButton><br/> 

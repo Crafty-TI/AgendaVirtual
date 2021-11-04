@@ -9,7 +9,6 @@ router.get('/userList', (req, res, next) => {
   con.query(sqlSelect,(err,result) =>{
     return res.json(result);  
   })
-  //con.end();
 }); 
 
 /*  users Insert. */
@@ -18,12 +17,12 @@ router.post('/userInsert',(req,res) => {
   const apellido = req.body.apellido;
   const mail = req.body.mail;
   const tel = req.body.tel;
-  const rol = req.body.rol;
-  const sqlInsert = "INSERT INTO usuarios (nombre, apellido, mail, tel, rol_id) VALUES (?,?,?,?,?)"
-  con.query(sqlInsert,[nombre,apellido,mail,tel,rol], (err,result) =>{
+  const rol = req.body.rol_id;
+  const password = req.body.password;
+  const sqlInsert = "INSERT INTO usuarios (nombre, apellido, mail, tel, rol_id, password) VALUES (?,?,?,?,?,?)"
+  con.query(sqlInsert,[nombre,apellido,mail,tel,rol,password], (err,result) =>{
     return res.json(result);
   })
-  //con.end();
 })
 
 /*  users Update. */
@@ -32,10 +31,11 @@ router.put('/userUpdate',(req,res) => {
   const nombre = req.body.nombre;
   const apellido = req.body.apellido;
   const mail = req.body.mail;
+  const password = req.body.password;
   const tel = req.body.tel;
-  const rol = req.body.rol;
-  const sqlUpdate = "UPDATE usuarios SET nombre = ?, apellido = ?, mail = ?, tel = ?, rol_id = ? WHERE id = ?"
-  con.query(sqlUpdate, [nombre,apellido,mail,tel,rol,id], (err,result) => {
+  const rol_id = req.body.rol_id;
+  const sqlUpdate = "UPDATE usuarios SET nombre = ?, apellido = ?, mail = ?, tel = ?, rol_id = ?, password = ? WHERE id = ?"
+  con.query(sqlUpdate, [nombre,apellido,mail,tel,rol_id,password,id], (err,result) => {
       return res.json(result);
     })
 })
@@ -49,3 +49,29 @@ router.put('/userDelete',(req,res) => {
     })
 })
 module.exports = router;
+
+//Listar usuario a Editar
+router.get('/userEditList/:usuarioId', (req, res, next) => {   
+  const id = req.params.usuarioId;
+  const sqlSelect = "SELECT * FROM Usuarios where id = ?"
+  con.query(sqlSelect,id,(err,result) =>{
+    return res.json(result);  
+    
+  })
+}); 
+
+//Login
+router.put('/login', (req,res) => {
+  const mail = req.body.mail;
+  const password = req.body.password;
+  const sqlLogin = "SELECT * FROM Usuarios WHERE mail = ? AND password = ?"
+  con.query(sqlLogin, [mail,password],(err,result) =>{
+    console.log("longitud",result.length)
+    if (result.length>0) {
+      return res.json(result);
+    }
+    else{
+      return res.json({message:'Usuario o contraseña incorrecto'})
+    }
+  })
+});
