@@ -1,70 +1,56 @@
 import React from 'react'
-import Gantt from 'react-gantt-antd-tokrak'
-//const Gantt = require('react-gantt-antd-tokrak')
-export const Calendario: React.FC = () => {
+import { Calendar, momentLocalizer, Views } from 'react-big-calendar'
+import * as dates from './dates'
+import moment from 'moment'
+import { useEffect, useState } from "react";
+import { useConeccion } from "../../hooks/useConeccion";
 
-    const tasks_a = [
-        {
-          id: "task0",
-          index: 0,
-          title: "任务名称1",
-          start: new Date('2020-06-01'),
-          end: new Date('2020-08-02'),
-          tooltip: "任务全称1",
-        }
-      ]
+const now = new Date()
+let myViews: any = Views
+let allViews = Object.keys(myViews).map((k:any) => myViews[k])
+const localizer = momentLocalizer(moment)
+
+
+  export const Calendario : React.FC = () => {
     
-      const tasks_b = [
-        {
-          id: "task1",
-          index: 1,
-          title: "任务名称2",
-          start: new Date('2020-07-01'),
-          end: new Date('2020-09-02'),
-        }
-      ]
+    const ColoredDateCellWrapper = ({ children }:any) =>
+    React.cloneElement(React.Children.only(children), {
+      style: {
+        backgroundColor: 'lightblue',
+      },
+    })
+    const {get} = useConeccion();
+    const [eventsList, setEventList]= useState([]);
     
-      const sub_projects = [
-        {
-          id: "sub_project1",
-          index: 1,
-          title: "子项目",
-          tasks: tasks_b,
-        }
-      ]
+        useEffect(() => {
+            get('agenda/eventList').then((response) => {
+              let lista = response.data.map((element : any) => {
+                return{
+                  id: element.id,
+                  title: element.title,
+                  allDay: element.allDay === 'true',
+                  start: new Date(element.start),
+                  end: new Date (element.end),
+                }
+              });
+              console.table(lista)
+                setEventList(lista)
     
-      const projects = [
-        {
-          id: "project1",
-          index: 0,
-          title: "项目1",
-          tasks: tasks_a,
-          projects: sub_projects,
-          isOpen: false,
-        }
-      ]
-    
-      const clickTask = (e:any) => {
-        console.log(e);
-      };
-    
-      const clickProject = (e:any) => {
-        console.log(e);
-      };
-    
-      return (
-        <Gantt
-          start={new Date('2020-06-01')}
-          end={new Date('2020-10-01')}
-          now={new Date('2020-7-01')}
-          zoom={1}
-          sidebarWidth={240}
-          minWidth={800}
-          projects={projects}
-          enableSticky={true}
-          scrollToNow={true}
-          clickTask={clickTask}
-          clickProject={clickProject}
-        />
-      )
+            });
+        },[])
+
+      return(
+      <Calendar style={{height:500}}
+      events={eventsList}
+      views={allViews}
+      step={60}
+      showMultiDayTimes
+      min={dates.add(dates.startOf(new Date(), 'day'), 6, 'hours')}
+      max={dates.add(dates.endOf(new Date(), 'day'), -2, 'hours')}
+      defaultDate={new Date(2021, 10, 21)}
+      components={{
+        timeSlotWrapper: ColoredDateCellWrapper,
+      }}
+      localizer={localizer}
+  />)
 }
