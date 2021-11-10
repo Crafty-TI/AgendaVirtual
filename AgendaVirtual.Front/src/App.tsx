@@ -19,6 +19,8 @@ export const App = () => {
       <a href={`/crearusuario`}>Añadir Usuario</a>
       <br />
       <a href={`/login`}>Login</a>
+      <br />
+      <a href={`/calendario`}>Calendario</a>
       <Rutas></Rutas>
     </div>
 

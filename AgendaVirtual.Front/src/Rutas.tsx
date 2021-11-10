@@ -9,6 +9,7 @@ import { Roles } from "./Pantallas/Roles";
 import { Usuario } from "./Pantallas/Usuario";
 import  UsuariosLista from "./Pantallas/UsuariosLista/index";
 import { Login } from "./Pantallas/Login/";
+import { Calendario } from "./Pantallas/Calendario/";
 
 const Rutas:React.FC = ()=>{
     return (
@@ -19,6 +20,7 @@ const Rutas:React.FC = ()=>{
           <Route path="/editarusuario/:usuarioId" component={Usuario}/>
           <Route path="/crearusuario" component={Usuario}/>
           <Route path="/login" component={Login}/>
+          <Route path="/calendario" component={Calendario}/>
       </Switch>
   </Router>
     );
