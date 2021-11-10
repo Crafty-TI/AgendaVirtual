@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
- 
 const con = require('../../services/db/conection');
 
 /* GET users listing. */
@@ -25,6 +24,7 @@ router.post('/userInsert',(req,res) => {
   })
 })
 
+
 /*  users Update. */
 router.put('/userUpdate',(req,res) => {
   const id = req.body.id;
@@ -48,7 +48,6 @@ router.put('/userDelete',(req,res) => {
       return res.json(result);
     })
 })
-module.exports = router;
 
 //Listar usuario a Editar
 router.get('/userEditList/:usuarioId', (req, res, next) => {   
@@ -76,3 +75,4 @@ router.put('/login', (req,res) => {
   })
 });
 
+module.exports = router;

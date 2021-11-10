@@ -65,7 +65,6 @@ const UsuariosLista:React.FC = () => {
     useEffect(() => {
         get('users/userList').then((response) => {
             setUsersList(response.data)
-
         });
     },[])
 
