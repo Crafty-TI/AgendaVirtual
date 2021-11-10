@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import Rutas from './Rutas';
+import Menu from './componentes/Menu/';
 
 
 
@@ -10,16 +11,10 @@ export const App = () => {
 
   return (
     <div className="App">
-      <a href="/usuarios">usuarios</a>
-      <br />
-      <a href="/roles">roles</a>
-      <br />
-      <a href={`/editarusuario/${987}`}>Editar Usuario</a>
-      <br />
-      <a href={`/crearusuario`}>Añadir Usuario</a>
-      <br />
-      <a href={`/login`}>Login</a>
-      <Rutas></Rutas>
+      <Menu>
+              <Rutas></Rutas>
+      </Menu>
+
     </div>
 
   );
