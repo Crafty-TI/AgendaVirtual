@@ -4,6 +4,7 @@ import * as dates from './dates'
 import moment from 'moment'
 import { useEffect, useState } from "react";
 import { useConeccion } from "../../hooks/useConeccion";
+import { useHistory } from 'react-router-dom';
 
 const now = new Date()
 let myViews: any = Views
@@ -12,19 +13,28 @@ const localizer = momentLocalizer(moment)
 
 
   export const Calendario : React.FC = () => {
-    
+    const history = useHistory();
+    const {get} = useConeccion();
+    const [eventsList, setEventList]= useState([]);
+    const [selected, setSelected] = useState();
+
     const ColoredDateCellWrapper = ({ children }:any) =>
     React.cloneElement(React.Children.only(children), {
       style: {
         backgroundColor: 'lightblue',
       },
     })
-    const {get} = useConeccion();
-    const [eventsList, setEventList]= useState([]);
+    const handleSelected = (event:any) => {
+      setSelected(event);
+      console.info('[handleSelected - event]', event);
+      // alert("Vas a editar el evento: "+event.id)
+      // history.push(`/editarusuario/${row.id}`)
+      history.push(`/editarEvento/${event.id}`)
+    };
     
         useEffect(() => {
             get('agenda/eventList').then((response) => {
-              let lista = response.data.map((element : any) => {
+              let listaEventos = response.data.map((element : any) => {
                 return{
                   id: element.id,
                   title: element.title,
@@ -33,14 +43,14 @@ const localizer = momentLocalizer(moment)
                   end: new Date (element.end),
                 }
               });
-              console.table(lista)
-                setEventList(lista)
+                setEventList(listaEventos)
     
             });
         },[])
 
       return(
       <Calendar style={{height:500}}
+      selected={selected}
       events={eventsList}
       views={allViews}
       step={60}
@@ -52,5 +62,7 @@ const localizer = momentLocalizer(moment)
         timeSlotWrapper: ColoredDateCellWrapper,
       }}
       localizer={localizer}
+
+      onSelectEvent={handleSelected}
   />)
 }

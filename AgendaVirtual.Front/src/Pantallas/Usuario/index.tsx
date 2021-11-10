@@ -36,8 +36,8 @@ export const Usuario: React.FC = () => {
             ...form
         });
         alert("Usuario Agregado")
-        form = {};
-        window.location.reload();
+        // form = {};
+        // window.location.reload();
     }
       
             return (

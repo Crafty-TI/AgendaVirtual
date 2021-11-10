@@ -10,6 +10,7 @@ import { Usuario } from "./Pantallas/Usuario";
 import  UsuariosLista from "./Pantallas/UsuariosLista/index";
 import { Login } from "./Pantallas/Login/";
 import { Calendario } from "./Pantallas/Calendario/";
+import { Eventos } from "./Pantallas/Eventos/";
 
 const Rutas:React.FC = ()=>{
     return (
@@ -21,6 +22,8 @@ const Rutas:React.FC = ()=>{
           <Route path="/crearusuario" component={Usuario}/>
           <Route path="/login" component={Login}/>
           <Route path="/calendario" component={Calendario}/>
+          <Route path="/eventos" component={Eventos}/>
+          <Route path="/editarEvento/:eventoId" component={Eventos}/>
       </Switch>
   </Router>
     );

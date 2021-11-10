@@ -14,14 +14,14 @@ export const App = () => {
       <br />
       <a href="/roles">roles</a>
       <br />
-      <a href={`/editarusuario/${987}`}>Editar Usuario</a>
-      <br />
       <a href={`/crearusuario`}>Añadir Usuario</a>
       <br />
       <a href={`/login`}>Login</a>
       <br />
       <a href={`/calendario`}>Calendario</a>
-      <Rutas></Rutas>
+      <br />
+      <a href={`/eventos`}>Eventos</a> <br />
+      <Rutas></Rutas><br />
     </div>
 
   );
