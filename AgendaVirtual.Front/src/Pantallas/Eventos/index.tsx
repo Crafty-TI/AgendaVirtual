@@ -27,7 +27,6 @@ export const Eventos: React.FC = () => {
         post(`Agenda/eventInsert/`,{
             ...form
         });
-        alert(JSON.stringify(form, null, 4));
         alert("Evento Agregado")
         form = {};
         window.location.reload();
@@ -47,6 +46,13 @@ export const Eventos: React.FC = () => {
         history.push(`/calendario`)
         alert("Evento Editado")
     };
+    const eliminarEvento = (id : number) => {
+        put(`agenda/eventoDelete`,{
+            ...form
+        })
+        form ={}
+        history.push('/calendario')
+    }
 
     return(
         <div>
@@ -86,8 +92,11 @@ export const Eventos: React.FC = () => {
                             
                             {eventoId?(
                                 <Stack>
-                            <ColorButton variant="contained">Eliminar</ColorButton>
-                            </Stack>
+                                    <ColorButton variant="contained" onClick={()=>{
+                                        eliminarEvento(form.id)
+                                    }}>
+                                    Eliminar</ColorButton>
+                                </Stack>
                             ):
                             null}
                         </Stack>

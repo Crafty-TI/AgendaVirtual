@@ -20,7 +20,7 @@ export const App = () => {
       <br />
       <a href={`/calendario`}>Calendario</a>
       <br />
-      <a href={`/eventos`}>Eventos</a> <br />
+      <a href={`/eventos`}>Añadir Evento</a> <br />
       <Rutas></Rutas><br />
     </div>
 
