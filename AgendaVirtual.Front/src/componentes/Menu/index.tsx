@@ -40,8 +40,17 @@ const Rutas = [
         texto: 'logOut',
         icono: LoginIcon,
     },
+    {
+        nombreRuta: 'calendario',
+        texto: 'calendario',
+        icono: DescriptionIcon,
+    },
+    {
+        nombreRuta: 'eventos',
+        texto: 'eventos',
+        icono: DescriptionIcon,
+    },
 ]
-
 const Menu = ({ children }: any) => {
     const [logueado, setLogueado] = useState(false)
     useEffect(() => {
