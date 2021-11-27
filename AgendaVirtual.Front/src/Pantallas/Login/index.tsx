@@ -16,7 +16,13 @@ export const Login: React.FC = () => {
                 alert(response.data.message)
             }
             else{
-                history.push(`/usuarios`)
+                sessionStorage.removeItem("usuario")
+                let usuario = response.data[0]
+                let userSesion={id : usuario.id,
+                    estudiante: usuario.rol_id==3, 
+                    admin : usuario.rol_id==1 }
+                sessionStorage.setItem("usuario", JSON.stringify(userSesion));
+                history.push(`/`)
             }
         })    
     }

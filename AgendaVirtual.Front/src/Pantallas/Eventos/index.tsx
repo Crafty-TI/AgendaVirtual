@@ -46,7 +46,7 @@ export const Eventos: React.FC = () => {
         history.push(`/calendario`)
         alert("Evento Editado")
     };
-    const eliminarEvento = (id : number) => {
+    const eliminarEvento = () => {
         put(`agenda/eventoDelete`,{
             ...form
         })
@@ -93,7 +93,7 @@ export const Eventos: React.FC = () => {
                             {eventoId?(
                                 <Stack>
                                     <ColorButton variant="contained" onClick={()=>{
-                                        eliminarEvento(form.id)
+                                        eliminarEvento()
                                     }}>
                                     Eliminar</ColorButton>
                                 </Stack>

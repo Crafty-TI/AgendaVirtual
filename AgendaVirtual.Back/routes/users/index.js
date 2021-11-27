@@ -75,4 +75,11 @@ router.put('/login', (req,res) => {
   })
 });
 
+
+router.get('/listaProfesores', (req, res, next) => {   
+  const sqlSelect = "SELECT * FROM Usuarios where activo IS NULL and rol_id=2"
+  con.query(sqlSelect,(err,result) =>{
+    return res.json(result);  
+  })
+}); 
 module.exports = router;

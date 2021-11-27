@@ -24,6 +24,7 @@ const Rutas:React.FC = ()=>{
           <Route path="/calendario" component={Calendario}/>
           <Route path="/eventos" component={Eventos}/>
           <Route path="/editarEvento/:eventoId" component={Eventos}/>
+          <Route path="/" component={Calendario}/>
       </Switch>
   </Router>
     );
