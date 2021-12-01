@@ -17,6 +17,20 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import EditIcon from '@mui/icons-material/Edit';
 import LoginIcon from '@mui/icons-material/Login';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
+import { Roles } from "../../Pantallas/Roles";
+import { Usuario } from "../../Pantallas/Usuario";
+import UsuariosLista from "../../Pantallas/UsuariosLista/index";
+
+import { Calendario } from "../../Pantallas/Calendario/";
+import { Eventos } from "../../Pantallas/Eventos/";
+
+
 const drawerWidth = 240
 
 const RutasEstudiante = [
@@ -57,28 +71,33 @@ const RutasAdmin = [
     },
 ]
 const Menu = ({ children }: any) => {
-    const [logueado, setLogueado] = useState(false)
+    const history = useHistory();
+    const [logueado, setLogueado] = useState(true)
     const [rutas, setRutas] = useState<any[]>([])
 
 
     useEffect(() => {
-        const router = window.location.pathname;
-        setLogueado(!router.includes("login"))
-        let usuario = JSON.parse(sessionStorage.getItem("usuario")??'')
-        if (usuario.admin) {
-            setRutas(RutasAdmin)
+        if(sessionStorage.length>0){
+            setLogueado(true)
+            let usuario = JSON.parse(sessionStorage.getItem("usuario")??'')
+            if (usuario.admin) {
+                setRutas(RutasAdmin)
+            }
+            else if (usuario.estudiante) {
+                setRutas(RutasEstudiante)
+            }
+            else{
+                setRutas(RutasProfesor)
+            }
+        }else{
+            history.push(`/login`)
         }
-        else if (usuario.estudiante) {
-            setRutas(RutasEstudiante)
-        }
-        else{
-            setRutas(RutasProfesor)
-        }
+
     }, [])
 
     return (
         <Box sx={{ display: 'flex' }}>
-            {logueado ? (<><CssBaseline />
+            <CssBaseline />
                 <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                     <Toolbar>
                         <Typography variant="h6" noWrap component="div">
@@ -112,13 +131,14 @@ const Menu = ({ children }: any) => {
                 </Drawer>
                 <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                     <Toolbar />
-                    {children}
-                </Box></>) : 
-                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                    {children}
-                </Box>
-                }
-
+                    <Route path="/roles" component={Roles} />
+        <Route path="/editarusuario/:usuarioId" component={Usuario}/>
+        <Route path="/crearusuario" component={Usuario} />
+        <Route path="/usuarios" component={UsuariosLista} />
+        <Route path="/calendario" component={Calendario} />
+        <Route path="/eventos" component={Eventos} />
+        <Route path="/editarEvento/:eventoId" component={Eventos} />
+                </Box>              
         </Box>
     );
 }

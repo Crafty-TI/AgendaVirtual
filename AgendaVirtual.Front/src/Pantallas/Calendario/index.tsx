@@ -69,7 +69,7 @@ const localizer = momentLocalizer(moment)
         useEffect(() => {
         
             get(`agenda/eventList/${profesor}`).then((response) => {
-              let listaEventos = response.data.map((element : any) => {
+              let listaEventos = response?.data?.map((element : any) => {
                 return{
                   id: element.id,
                   title: element.title,

@@ -8,13 +8,9 @@ import Menu from './componentes/Menu/';
 
 
 export const App = () => {
-
   return (
     <div className="App">
-      <Menu>
-              <Rutas></Rutas>
-      </Menu>
-
+        <Rutas></Rutas>
     </div>
 
   );
