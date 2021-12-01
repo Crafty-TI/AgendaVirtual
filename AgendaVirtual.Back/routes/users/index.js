@@ -4,7 +4,7 @@ const con = require('../../services/db/conection');
 
 /* GET users listing. */
 router.get('/userList', (req, res, next) => {   
-  const sqlSelect = "SELECT * FROM Usuarios where activo IS NULL"
+  const sqlSelect = "SELECT id, nombre, apellido, mail, tel, rol_id FROM Usuarios where activo IS NULL"
   con.query(sqlSelect,(err,result) =>{
     return res.json(result);  
   })

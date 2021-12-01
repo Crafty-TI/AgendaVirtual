@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useConeccion } from '../../hooks/useConeccion';
 
@@ -7,6 +7,11 @@ export const Login: React.FC = () => {
     const history = useHistory();
     const {put} = useConeccion();
     const [login, setLogin] = useState({})
+
+
+    useEffect(() => {
+        sessionStorage.removeItem("usuario")
+    })
 
     const validarLogin = () => {
         put(`users/login`,{
@@ -20,9 +25,10 @@ export const Login: React.FC = () => {
                 let usuario = response.data[0]
                 let userSesion={id : usuario.id,
                     estudiante: usuario.rol_id==3, 
+                    profesor : usuario.rol_id==2 , 
                     admin : usuario.rol_id==1 }
                 sessionStorage.setItem("usuario", JSON.stringify(userSesion));
-                history.push(`/`)
+                history.push(`/calendario`)
             }
         })    
     }

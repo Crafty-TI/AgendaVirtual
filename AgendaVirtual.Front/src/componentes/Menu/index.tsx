@@ -19,21 +19,26 @@ import LoginIcon from '@mui/icons-material/Login';
 
 const drawerWidth = 240
 
-const Rutas = [
+const RutasEstudiante = [
+    {
+        nombreRuta: 'calendario',
+        texto: 'calendario',
+        icono: PeopleAltIcon,
+    }
+]
+const RutasProfesor = [
+    {
+        nombreRuta: 'eventos',
+        texto: 'eventos',
+        icono: PeopleAltIcon,
+    }
+]
+
+const RutasAdmin = [
     {
         nombreRuta: 'usuarios',
         texto: 'usuarios',
         icono: PeopleAltIcon,
-    },
-    {
-        nombreRuta: 'roles',
-        texto: 'roles',
-        icono: DescriptionIcon,
-    },
-    {
-        nombreRuta: `editarusuario/${987}`,
-        texto: 'Editar Usuario',
-        icono: EditIcon,
     },
     {
         nombreRuta: 'login',
@@ -53,10 +58,24 @@ const Rutas = [
 ]
 const Menu = ({ children }: any) => {
     const [logueado, setLogueado] = useState(false)
+    const [rutas, setRutas] = useState<any[]>([])
+
+
     useEffect(() => {
         const router = window.location.pathname;
         setLogueado(!router.includes("login"))
+        let usuario = JSON.parse(sessionStorage.getItem("usuario")??'')
+        if (usuario.admin) {
+            setRutas(RutasAdmin)
+        }
+        else if (usuario.estudiante) {
+            setRutas(RutasEstudiante)
+        }
+        else{
+            setRutas(RutasProfesor)
+        }
     }, [])
+
     return (
         <Box sx={{ display: 'flex' }}>
             {logueado ? (<><CssBaseline />
@@ -78,7 +97,7 @@ const Menu = ({ children }: any) => {
                     <Toolbar />
                     <Box sx={{ overflow: 'auto' }}>
                         <List>
-                            {Rutas.map((item, index) => (
+                            {rutas.map((item, index) => (
                                 <ListItem button key={`/${item.texto}`}>
                                     <ListItemIcon>
                                         <item.icono />
@@ -97,7 +116,8 @@ const Menu = ({ children }: any) => {
                 </Box></>) : 
                 <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                     {children}
-                </Box>}
+                </Box>
+                }
 
         </Box>
     );
