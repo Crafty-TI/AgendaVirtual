@@ -35,9 +35,9 @@ const drawerWidth = 240
 
 const RutasEstudiante = [
     {
-        nombreRuta: 'calendario',
-        texto: 'calendario',
-        icono: PeopleAltIcon,
+        nombreRuta: 'login',
+        texto: 'logOut',
+        icono: LoginIcon,
     }
 ]
 const RutasProfesor = [
@@ -45,7 +45,17 @@ const RutasProfesor = [
         nombreRuta: 'eventos',
         texto: 'eventos',
         icono: PeopleAltIcon,
-    }
+    },
+    {
+        nombreRuta: 'calendario',
+        texto: 'calendario',
+        icono: PeopleAltIcon,
+    },
+    {
+        nombreRuta: 'login',
+        texto: 'logOut',
+        icono: LoginIcon,
+    },
 ]
 
 const RutasAdmin = [
@@ -55,11 +65,6 @@ const RutasAdmin = [
         icono: PeopleAltIcon,
     },
     {
-        nombreRuta: 'login',
-        texto: 'logOut',
-        icono: LoginIcon,
-    },
-    {
         nombreRuta: 'calendario',
         texto: 'calendario',
         icono: DescriptionIcon,
@@ -69,16 +74,19 @@ const RutasAdmin = [
         texto: 'eventos',
         icono: DescriptionIcon,
     },
+    {
+        nombreRuta: 'login',
+        texto: 'logOut',
+        icono: LoginIcon,
+    }
 ]
 const Menu = ({ children }: any) => {
     const history = useHistory();
-    const [logueado, setLogueado] = useState(true)
     const [rutas, setRutas] = useState<any[]>([])
 
 
     useEffect(() => {
         if(sessionStorage.length>0){
-            setLogueado(true)
             let usuario = JSON.parse(sessionStorage.getItem("usuario")??'')
             if (usuario.admin) {
                 setRutas(RutasAdmin)
